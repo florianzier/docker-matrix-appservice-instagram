@@ -1,0 +1,28 @@
+version: "3.8"
+
+
+services:
+
+  matrix-instagram-bridge:
+    image: turt2live/matrix-appservice-instagram-media:latest
+    user: ${UID}:${GID}
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+      args:
+        - UID=${UID}
+        - GID=${GID}
+    container_name: matrix-instagram-bridge
+    restart: unless-stopped
+    #ports:
+    #  - "9000:9000/tcp"
+    env_file:
+      - .env
+    volumes:
+      - "./data:/data:rw"
+    networks:
+      default:
+
+
+networks:
+  default:
